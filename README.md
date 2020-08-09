@@ -9,3 +9,4 @@ A basic reverse polish notation calculator.
 * Modular division (divide two numbers and keep the remainder)
 * Logarithms (both natural log and base 10)
 * Exponentials (e^x)
+* Support for arbitrary precision

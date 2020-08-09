@@ -8,10 +8,106 @@ enum
 	STACK_LENGTH = 256,
 	NUMBER_SIZE = 1000
 };
+
+/* Add the two numbers at the top of the stack and store the result at the top of the stack */
+void
+addNums (double *stack, int *stackPointer)
+{	
+	double sum;
+	int stackPtr = *stackPointer;
+
+	sum = stack[stackPtr - 1] + stack[stackPtr];
+
+	/* Clear the top of the stack and decrement the stack pointer */
+	stack[stackPtr] = 0x00;
+	stackPtr--;
+
+	/* Now store the sum at the new top of the stack */
+	stack[stackPtr] = sum;
+	*stackPointer = stackPtr;
+}
+
+/* Subtract the two numbers at the top of the stack */
+void
+subNums (double *stack, int *stackPointer)
+{
+	double diff;
+	int stackPtr = *stackPointer;
+
+	diff = stack[stackPtr - 1] - stack[stackPtr];
+
+	/* Clear the top of the stack and decrement the stack pointer */
+	stack[stackPtr] = 0x00;
+	stackPtr--;
+
+	/* Now store the sum at the new top of the stack */
+	stack[stackPtr] = diff;
+	*stackPointer = stackPtr;
+}
+
+/* Multiply the two numbers at the top of the stack */
+void
+multNums (double *stack, int *stackPointer)
+{
+	double prod;
+	int stackPtr = *stackPointer;
+
+	prod = stack[stackPtr - 1] * stack[stackPtr];
+
+	/* Clear the top of the stack and decrement the stack pointer */
+	stack[stackPtr] = 0x00;
+	stackPtr--;
+
+	/* Now store the sum at the new top of the stack */
+	stack[stackPtr] = prod;
+	*stackPointer = stackPtr;
+}
+
+/* Divide the two numbers at the top of the stack */
+void
+divNums (double *stack, int *stackPointer)
+{
+	double quot;
+	int stackPtr = *stackPointer;
+
+	if (stack[stackPtr] == 0) {
+		fprintf (stderr, "ERROR:  Divide by zero error.\n");
+		return;
+	}
+
+	quot = stack[stackPtr - 1] / stack[stackPtr];
+
+	/* Clear the top of the stack and decrement the stack pointer */
+	stack[stackPtr] = 0x00;
+	stackPtr--;
+
+	/* Now store the sum at the new top of the stack */
+	stack[stackPtr] = quot;
+	*stackPointer = stackPtr;
+}
+
+/* Use the number at the top of the stack as the exponent and the next number
+ * as the base */
+void
+expNums (double *stack, int *stackPointer)
+{
+	double res;
+	int stackPtr = *stackPointer;
+
+	res = pow (stack[stackPtr - 1], stack[stackPtr]);
+
+	/* Clear the top of the stack and decrement the stack pointer */
+	stack[stackPtr] = 0x00;
+	stackPtr--;
+
+	/* Now store the sum at the new top of the stack */
+	stack[stackPtr] = res;
+	*stackPointer = stackPtr;
+}
  
 /* Print the stack from top to bottom */
 void
-printFullStack (double *stack, double stackPtr)
+printFullStack (double *stack, int stackPtr)
 {
 	int i;
 
@@ -50,10 +146,11 @@ main ()
 				fprintf (stderr, "ERROR:  not enough numbers on the stack.\n");
 			}
 			else {
-				fullNumber = stack[stackPtr - 1] + stack[stackPtr];
+/*				fullNumber = stack[stackPtr - 1] + stack[stackPtr];
 				stack[stackPtr] = 0x00;
 				stack[stackPtr - 1] = fullNumber;
-				stackPtr--;
+				stackPtr--; */
+				addNums (stack, &stackPtr);
 			}
 
 			continue;
@@ -65,10 +162,12 @@ main ()
 				fprintf (stderr, "ERROR:  not enough numbers on the stack.\n");
 			}
 			else {
-				fullNumber = stack[stackPtr - 1] - stack[stackPtr];
+/*				fullNumber = stack[stackPtr - 1] - stack[stackPtr];
 				stack[stackPtr] = 0x00;
 				stack[stackPtr - 1] = fullNumber;
-				stackPtr--;
+				stackPtr--; */
+
+				subNums (stack, &stackPtr);
 			}
 
 			continue;
@@ -80,10 +179,12 @@ main ()
 				fprintf (stderr, "ERROR:  not enough numbers on the stack.\n");
 			}
 			else {
-				fullNumber = stack[stackPtr - 1] * stack[stackPtr];
+/*				fullNumber = stack[stackPtr - 1] * stack[stackPtr];
 				stack[stackPtr] = 0x00;
 				stack[stackPtr - 1] = fullNumber;
-				stackPtr--;
+				stackPtr--; */
+
+				multNums (stack, &stackPtr);
 			}
 
 			continue;
@@ -95,10 +196,12 @@ main ()
 				fprintf (stderr, "ERROR:  not enough numbers on the stack.\n");
 			}
 			else {
-				fullNumber = stack[stackPtr - 1] / stack[stackPtr];
+/*				fullNumber = stack[stackPtr - 1] / stack[stackPtr];
 				stack[stackPtr] = 0x00;
 				stack[stackPtr - 1] = fullNumber;
-				stackPtr--;
+				stackPtr--; */
+
+				divNums (stack, &stackPtr);
 			}
 
 			continue;
@@ -111,10 +214,12 @@ main ()
 				fprintf (stderr, "ERROR:  not enough numbers on the stack.\n");
 			}
 			else {
-				fullNumber = pow (stack[stackPtr - 1], stack[stackPtr]);
+/*				fullNumber = pow (stack[stackPtr - 1], stack[stackPtr]);
 				stack[stackPtr] = 0x00;
 				stack[stackPtr - 1] = fullNumber;
-				stackPtr--;
+				stackPtr--; */
+
+				expNums (stack, &stackPtr);
 			}
 
 			continue;
