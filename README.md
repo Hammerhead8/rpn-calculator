@@ -4,12 +4,12 @@ extra operations added that I use quite often.
 
 # Features
 * Basic arithmetic operations (add, subtract, multiply, divide, and exponent)
-* Square root and logarithms (both natural and base 10)
+* Logarithms (both natural and base 10)
 * Handles both integers and floating point numbers
 
 # Planned Features
-* Logarithms (both natural log and base 10)
 * Exponentials (e^x)
+* Square root
 * Trigonometric functions
 * Support for arbitrary precision
 * Registers
