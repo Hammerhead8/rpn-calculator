@@ -225,6 +225,28 @@ main ()
 			continue;
 		}
 
+		/* If a 'l' was entered then calculate the natural log of the number
+		 * at the top of the stack */
+		else if (number[0] == 0x6c) {
+			if (stackPtr == -1) {
+				fprintf (stderr, "ERROR:  stack is empty.\n");
+			}
+			else {
+				stack[stackPtr] = log (stack[stackPtr]);
+			}
+		}
+
+		/* If a 'L' was entered then calculate the base 10 logarithm of the
+		 * number at the top of the stack */
+		else if (number[0] == 0x4c) {
+			if (stackPtr == -1) {
+				fprintf (stderr, "ERROR:  stack is empty.\n");
+			}
+			else {
+				stack[stackPtr] = log10 (stack[stackPtr]);
+			}
+		}
+
 		/* If a 'f' was entered then print the entire stack */
 		else if (number[0] == 0x66) {
 			if (stackPtr == -1) {
