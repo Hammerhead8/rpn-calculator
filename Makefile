@@ -9,7 +9,7 @@ rpn: $(OBJS)
 	$(CC) -o rpn $(OBJS) $(CFLAGS)
 
 install:
-	install -m 557 $(CURDIR)/rpn $(PREFIX)/bin
+	install -m 557 $(CURDIR)/rpn $(PREFIX)/bin/rpn
 
 clean:
 	rm $(PREFIX)/bin/rpn
