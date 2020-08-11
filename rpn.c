@@ -278,6 +278,12 @@ main ()
 			continue;
 		}
 
+		/* If a 'P' was entered then pop the number at the top of the stack */
+		else if (number[0] == 0x50) {
+			stack[stackPtr] = 0x00;
+			stackPtr--;
+		}
+
 		/* Remove the trailing newline from the number string */
 		indexPtr = strchr (number, 0x0a);
 		*indexPtr = 0x00;
@@ -300,7 +306,7 @@ main ()
 				for (i = length - 1; i >= 1; i--) {
 					/* Convert the digit from ascii to decimal */
 					number[i] -= 0x30;
-					fullNumber += (double)number[i] * pow (10, i - (length - 1));
+					fullNumber += (double)number[i] * pow (10, (length - 1) - i);
 				}
 
 				fullNumber *= -1;
@@ -312,7 +318,7 @@ main ()
 				for (i = length - 1; i >= 0; i--) {
 					/* Convert each digit from ascii to decimal */
 					number[i] -= 0x30;
-					fullNumber += (double)number[i] * pow (10, i - (length - 1));
+					fullNumber += (double)number[i] * pow (10, (length - 1) - i);
 				}
 			}
 
@@ -342,14 +348,14 @@ main ()
 				for (i = index - 1; i >= 1; i--) {
 					/* Convert each digit from ascii to decimal */
 					number[i] -= 0x30;
-					fullNumber += (double)number[i] * pow (10, i - (index - 1));
+					fullNumber += (double)number[i] * pow (10, (index - 1) - i);
 				}
 	
 				/* Now loop through the decimal part of the number */
 				for (i = index + 1; i < length; i++) {
 					/* Convert each digit from ascii to decimal */
 					number[i] -= 0x30;
-					fullNumber += (double)number[i] / pow (10, i - index);
+					fullNumber += (double)number[i] / pow (10, index - i);
 				}
 	
 				fullNumber *= -1;
@@ -362,7 +368,7 @@ main ()
 				for (i = index - 1; i >= 0; i--) {
 					/* Convert each digit from ascii to decimal */
 					number[i] -= 0x30;
-					fullNumber += (double)number[i] * pow (10, i - (index - 1));
+					fullNumber += (double)number[i] * pow (10, (index - 1) - i);
 				}
 	
 				/* Now loop through the decimal part of the number */
