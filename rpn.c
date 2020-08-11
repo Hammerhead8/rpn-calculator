@@ -6,13 +6,14 @@
 enum
 {
 	STACK_LENGTH = 256,
-	NUMBER_SIZE = 1000
+	NUMBER_SIZE = 1000,
+	REGISTERS = 10
 };
 
 /* Add the two numbers at the top of the stack and store the result at the top of the stack */
 void
 addNums (double *stack, int *stackPointer)
-{	
+{
 	double sum;
 	int stackPtr = *stackPointer;
 
@@ -123,7 +124,9 @@ main ()
 	unsigned char *indexPtr; /* Stores the returned pointer from strchr */
 	int index; /* Index of the decimal point in the number */
 	double fullNumber; /* Number after parsing from string */
-	double stack[STACK_LENGTH]; /* The stack */
+	double stack[STACK_LENGTH] = {0x00}; /* The stack */
+	double registers[REGISTERS] = {0x00}; /* The registers */
+	int regNum; /* The register being accessed */
 	int stackPtr = -1; /* Holds the index to the number at the top of the stack */
 	int length; /* The number of digits in the number that was just entered */
 	int i; /* Loop counter */
@@ -282,6 +285,64 @@ main ()
 		else if (number[0] == 0x50) {
 			stack[stackPtr] = 0x00;
 			stackPtr--;
+		}
+
+		/* If 'sX' was entered then save the number at the top of the
+		 * stack in register X. If another number is already saved
+		 * in the register then overwrite it. */
+		else if (number[0] == 0x73) {
+			if (stackPtr == -1) {
+				fprintf (stderr, "ERROR:  stack empty.\n");
+				continue;
+			}
+
+			else {
+				if (number[1] >= 0x30 && number[1] <= 0x39) {
+					/* Convert the number from ascii to decimal */
+					regNum = number[1] - 0x30;
+
+					/* Pop the number from the top of the stack
+					 * and store it in the register */
+					registers[regNum] = stack[stackPtr];
+					stack[stackPtr] = 0x00;
+					stackPtr--;
+				}
+			}
+
+			continue;
+		}
+
+		/* if 'rX' was entered then recall the number from register X
+		 * and push it to the stack. The registers is then cleared. */
+		else if (number[0] == 0x72) {
+			regNum = number[1] - 0x30;
+
+			if (registers[regNum] == 0x00) {
+				fprintf (stderr, "Register %d is empty.\n", regNum);
+			}
+			else {
+				stackPtr++;
+				stack[stackPtr] = registers[regNum];
+				registers[regNum] = 0x00;
+			}
+
+			continue;
+		}
+
+		/* If 'RX' is entered then recall the number from register X
+		 * and push it to the stack. The value in the register is preserved. */
+		else if (number[0] == 0x52) {
+			regNum = number[1] - 0x30;
+
+			if (registers[regNum] == 0x00) {
+				fprintf (stderr, "Register %d is empty.\n", regNum);
+			}
+			else {
+				stackPtr++;
+				stack[stackPtr] = registers[regNum];
+			}
+
+			continue;
 		}
 
 		/* Remove the trailing newline from the number string */
