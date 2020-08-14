@@ -5,12 +5,12 @@ extra operations added that I use quite often.
 # Features
 * Basic arithmetic operations (add, subtract, multiply, divide, and exponent)
 * Logarithms (both natural and base 10)
+* Exponentials (e^x)
+* Square root
 * Handles both integers and floating point numbers
 * Ten Registers, numbered 0-9
 
 # Planned Features
-* Exponentials (e^x)
-* Square root
 * Trigonometric functions
 * Support for arbitrary precision
 
@@ -32,6 +32,8 @@ The program reads from standard input. Each input is entered on its own line. To
 * '^' &nbsp; &nbsp; Pops two numbers at the top of the stack. The first number will be the exponent to which the second number will be raised.
 * 'l' &nbsp; &nbsp; Pops the number at the top of the stack and stores its natural logarithm.
 * 'L' &nbsp; &nbsp; Pops the number at the top of the stack and stores its base 10 logarithm.
+* 'v' &nbsp; &nbsp; Pops the number at the top of the stack, calculates the square root, and stores the result.
+* 'e' &nbsp; &nbsp; Pops the number at the top of the stack, uses it as the exponent of the natural base, and stores the result.
 
 ## Register commands
 * 'sX' &nbsp; &nbsp; Pops the number at the top of the stack and saves it in register X.
