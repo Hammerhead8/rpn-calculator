@@ -416,7 +416,7 @@ main ()
 				for (i = index + 1; i < length; i++) {
 					/* Convert each digit from ascii to decimal */
 					number[i] -= 0x30;
-					fullNumber += (double)number[i] / pow (10, index - i);
+					fullNumber += (double)number[i] / pow (10, i - index);
 				}
 	
 				fullNumber *= -1;
