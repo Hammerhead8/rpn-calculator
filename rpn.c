@@ -250,6 +250,35 @@ main ()
 			}
 		}
 
+		/* If a 'v' was entered then calculate the square root of the
+		 * number at the top of the stack */
+		else if (number[0] == 0x76) {
+			if (stackPtr == -1) {
+				fprintf (stderr, "ERROR:  stack is empty.\n");
+			}
+			else if (stack[stackPtr] < 0) {
+				fprintf (stderr, "Square root of a negative number is undefined.\n");
+			}
+			else {
+				stack[stackPtr] = sqrt (stack[stackPtr]);
+			}
+
+			continue;
+		}
+
+		/* If an 'e' was entered then use the number at the top of the stack
+		 * as the exponent of the natural base (2.71) */
+		else if (number[0] == 0x65) {
+			if (stackPtr == -1) {
+				fprintf (stderr, "ERROR:  stack is emtpy.\n");
+			}
+			else {
+				stack[stackPtr] = exp (stack[stackPtr]);
+			}
+
+			continue;
+		}
+
 		/* If a 'f' was entered then print the entire stack */
 		else if (number[0] == 0x66) {
 			if (stackPtr == -1) {
