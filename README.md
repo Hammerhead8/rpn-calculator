@@ -9,6 +9,7 @@ extra operations added that I use quite often.
 * Square root
 * Handles both integers and floating point numbers
 * Ten Registers, numbered 0-9
+* Only depends on the C standard math library
 
 # Planned Features
 * Trigonometric functions
@@ -16,7 +17,7 @@ extra operations added that I use quite often.
 
 # Usage
 The program reads from standard input. Each input is entered on its own line. To compile, simply use something like:
-`gcc rpn.c -o rpn`
+`gcc rpn.c -o rpn -lm`
 
 ## Printing and Control Commands
 * q &nbsp; &nbsp; Exits the program.
