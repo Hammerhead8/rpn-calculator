@@ -342,7 +342,7 @@ main ()
 		}
 
 		/* if 'rX' was entered then recall the number from register X
-		 * and push it to the stack. The registers is then cleared. */
+		 * and push it to the stack. The register is then cleared. */
 		else if (number[0] == 0x72) {
 			regNum = number[1] - 0x30;
 
@@ -374,7 +374,9 @@ main ()
 			continue;
 		}
 
-		/* Remove the trailing newline from the number string */
+		/* Remove the trailing newline from the number string.
+		 * indexPtr holds the address of the first newline,
+		 * which is at the end of the line */
 		indexPtr = strchr (number, 0x0a);
 		*indexPtr = 0x00;
 
@@ -394,6 +396,12 @@ main ()
 			if (number[0] == 0x5f) {
 				/* Now loop through the digits and combine them into one number */
 				for (i = length - 1; i >= 1; i--) {
+					/* Check if the digit is a valid character */
+					if (number[i] < 0x30 || number[i] > 0x39) {
+						fprintf (stderr, "ERROR:  Invalid entry.\n");
+						break;
+					}
+
 					/* Convert the digit from ascii to decimal */
 					number[i] -= 0x30;
 					fullNumber += (double)number[i] * pow (10, (length - 1) - i);
@@ -406,6 +414,12 @@ main ()
 			else {
 				/* Loop through the digits and combine them into one number */
 				for (i = length - 1; i >= 0; i--) {
+					/* Check if the digit is a valid character */
+					if (number[i] < 0x30 || number[i] > 0x39) {
+						fprintf (stderr, "ERROR:  Invalid entry.\n");
+						break;
+					}
+
 					/* Convert each digit from ascii to decimal */
 					number[i] -= 0x30;
 					fullNumber += (double)number[i] * pow (10, (length - 1) - i);
@@ -422,7 +436,9 @@ main ()
 			/* Get the location of the decimal point
 			 * indexPtr is a pointer (holds the address to)
 			 * the decimal point and number is a pointer
-			 * to the leading digit in the number */
+			 * to the leading digit in the number.
+			 * Subtracting them will result in the
+			 * index in the array where the decimal point is */
 			index = (int)(indexPtr - number);
 
 			/* Calculate the number of digits in the number */
@@ -436,6 +452,12 @@ main ()
 				/* First loop through the integer part of the number
 				 * That is, the part of the number to the left of the decimal point */
 				for (i = index - 1; i >= 1; i--) {
+					/* Check if the digit is a valid character */
+					if (number[i] < 0x30 || number[i] > 0x39) {
+						fprintf (stderr, "ERROR:  Invalid entry.\n");
+						break;
+					}
+
 					/* Convert each digit from ascii to decimal */
 					number[i] -= 0x30;
 					fullNumber += (double)number[i] * pow (10, (index - 1) - i);
@@ -443,6 +465,12 @@ main ()
 	
 				/* Now loop through the decimal part of the number */
 				for (i = index + 1; i < length; i++) {
+					/* Check if the digit is a valid character */
+					if (number[i] < 0x30 || number[i] > 0x39) {
+						fprintf (stderr, "ERROR:  Invalid entry.\n");
+						break;
+					}
+
 					/* Convert each digit from ascii to decimal */
 					number[i] -= 0x30;
 					fullNumber += (double)number[i] / pow (10, i - index);
@@ -456,6 +484,12 @@ main ()
 				/* First loop through the integer part of the number
 				 * That is, the part of the number to the left of the decimal point */
 				for (i = index - 1; i >= 0; i--) {
+					/* Check if the digit is a valid character */
+					if (number[i] < 0x30 || number[i] > 0x39) {
+						fprintf (stderr, "ERROR:  Invalid entry.\n");
+						break;
+					}
+
 					/* Convert each digit from ascii to decimal */
 					number[i] -= 0x30;
 					fullNumber += (double)number[i] * pow (10, (index - 1) - i);
@@ -463,6 +497,12 @@ main ()
 	
 				/* Now loop through the decimal part of the number */
 				for (i = index + 1; i < length; i++) {
+					/* Check if the digit is a valid character */
+					if (number[i] < 0x30 || number[i] > 0x39) {
+						fprintf (stderr, "ERROR:  Invalid entry.\n");
+						break;
+					}
+
 					/* Convert each digit from ascii to decimal */
 					number[i] -= 0x30;
 					fullNumber += (double)number[i] / pow (10, i - index);
