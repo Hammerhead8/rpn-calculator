@@ -4,6 +4,7 @@
 #include <math.h>
 
 enum
+Sizes
 {
 	STACK_LENGTH = 256,
 	NUMBER_SIZE = 1000,
@@ -113,7 +114,7 @@ printFullStack (double *stack, int stackPtr)
 	int i;
 
 	for (i = stackPtr; i >= 0; i--) {
-		printf ("%lf\n", stack[i]);
+		printf ("%e\n", stack[i]);
 	}
 }
 
@@ -297,7 +298,7 @@ main ()
 				fprintf (stderr, "Stack is empty.\n");
 			}
 			else {
-				printf ("%lf\n", stack[stackPtr]);
+				printf ("%e\n", stack[stackPtr]);
 			}
 
 			continue;
@@ -438,7 +439,7 @@ main ()
 			 * the decimal point and number is a pointer
 			 * to the leading digit in the number.
 			 * Subtracting them will result in the
-			 * index in the array where the decimal point is */
+			 * index in the array where the decimal point is. */
 			index = (int)(indexPtr - number);
 
 			/* Calculate the number of digits in the number */
