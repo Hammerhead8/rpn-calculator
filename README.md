@@ -19,6 +19,16 @@ extra operations added that I use quite often.
 The program reads from standard input. Each input is entered on its own line. To compile, simply use something like:
 `gcc rpn.c -o rpn -lm`
 
+Alternatively, the latest release can be downloaded to use as a command line utility. To do this, download the latest tarball
+and unpack it to your desired directory. The following commands should configure and compile it.
+```
+./configure
+make
+sudo make install
+```
+
+Note that this has only been tested under Debian Linux, so other OS's might have different requirements to build.
+
 ## Printing and Control Commands
 * q &nbsp; &nbsp; Exits the program.
 * p  &nbsp; &nbsp;Prints the number at the top of the stack followed by a newline. The number is not popped from the stack.
