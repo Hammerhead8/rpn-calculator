@@ -1,5 +1,5 @@
 # rpn-calculator
-A basic reverse polish notation calculator. It is based on GNU dc with a few
+A basic reverse polish notation calculator. It is similar to GNU dc with a few
 extra operations added that I use quite often.
 
 # Features
