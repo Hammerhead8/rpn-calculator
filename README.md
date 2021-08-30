@@ -27,6 +27,8 @@ make
 sudo make install
 ```
 
+It can then be run by typing `rpn` into a terminal.
+
 Note that this has only been tested under Debian Linux, so other OS's might have different requirements to build.
 
 ## Printing and Control Commands
